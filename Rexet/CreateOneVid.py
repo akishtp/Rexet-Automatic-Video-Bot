@@ -1,11 +1,11 @@
-from cv2 import VideoWriter, VideoWriter_fourcc
 from moviepy.editor import *
-import cv2
 
 
 class CreateOneVid():
-    def __init__(self, i):
+    def __init__(self, i, title, subreddit):
         self.i = i
+        self.title = title
+        self.subreddit = subreddit
         for x in range(self.i):
             self.createSingleVid(x)
         self.createFullVid()
@@ -23,23 +23,5 @@ class CreateOneVid():
             clips.append(VideoFileClip(f'Video/part{i}.mp4'))
 
         final_video = concatenate_videoclips(clips, method='compose')
-        final_video.write_videofile('final_video.mp4', fps=30)
-        # videos = []
-        # for i in range(self.i):
-        #     videos.append(f'Video/part{i}.mp4')
-
-        # # Create a new video
-        # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-        # video = cv2.VideoWriter(
-        #     "new_video.mp4", fourcc, 1, (1080, 1920))
-
-        # # Write all the frames sequentially to the new video
-        # for v in videos:
-        #     curr_v = cv2.VideoCapture(v)
-        #     while curr_v.isOpened():
-        #         r, frame = curr_v.read()    # Get return value and curr frame of curr video
-        #         if not r:
-        #             break
-        #         video.write(frame)          # Write the frame
-
-        # video.release()
+        final_video.write_videofile(
+            f'{self.title} | {self.subreddit} | Rexet #shorts.mp4', fps=30)

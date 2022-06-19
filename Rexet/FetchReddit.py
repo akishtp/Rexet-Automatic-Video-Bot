@@ -12,7 +12,8 @@ class FetchReddit:
         self.id()
         self.getComments()
         CreateTitle(self.subreddit, self.title, self.author)
-        CreateComments(self.comments, self.comment_authors, self.title)
+        CreateComments(self.comments, self.comment_authors,
+                       self.title, self.subreddit)
 
     def id(self):
         try:

@@ -50,10 +50,10 @@ class CreateTitle():
     def drawTitle(self):
         draw = ImageDraw.Draw(self.image)
         y_text = 975
-        lines = textwrap.wrap(self.text, width=45)
+        lines = textwrap.wrap(self.text, width=40)
         font = ImageFont.truetype("Font/Font.ttf", 48)
         for line in lines:
-            draw.text((50, y_text),
+            draw.text((100, y_text),
                       line, font=font, fill=(200, 200, 200))
             y_text += 54
         self.image.save('images/0.png')
@@ -61,22 +61,22 @@ class CreateTitle():
     def drawAuthorTitle(self):
         draw = ImageDraw.Draw(self.image)
         font = ImageFont.truetype("Font/Font.ttf", 48)
-        draw.text((165, 825), f'r/{self.subreddit}',
+        draw.text((215, 825), f'r/{self.subreddit}',
                   fill=(200, 200, 200), font=font)
         font = ImageFont.truetype("Font/Font.ttf", 32)
-        draw.text((165, 885), f'u/{self.author}',
+        draw.text((215, 885), f'u/{self.author}',
                   fill=(200, 200, 200), font=font)
         self.image.save('images/0.png')
 
     def drawIcon(self):
         icon = Image.open('images/icons/icon.png').convert("RGBA")
         image = Image.open('images/0.png').convert("RGBA")
-        image.paste(icon, (50, 825), icon)
+        image.paste(icon, (100, 825), icon)
         image.save("images/0.png")
 
 
 class CreateComments():
-    def __init__(self, comments, comment_authors, title):
+    def __init__(self, comments, comment_authors, title, subreddit):
         self.comments = comments
         self.comment_authors = comment_authors
 
@@ -88,33 +88,33 @@ class CreateComments():
         for i in range(n):
             to_read.append(comments[i])
 
-        CreateAudio(to_read)
+        CreateAudio(to_read, subreddit)
 
     def drawDoots(self, i, h):
         upvote = Image.open('images/icons/upvote.png').convert("RGBA")
         downvote = Image.open('images/icons/downvote.png').convert("RGBA")
         backimg = Image.open(f'images/{i+1}.png').convert("RGBA")
-        backimg.paste(upvote, (20, h-35), upvote)
-        backimg.paste(downvote, (20, h+15), downvote)
+        backimg.paste(upvote, (70, h-35), upvote)
+        backimg.paste(downvote, (70, h+15), downvote)
         backimg.save(f'images/{i+1}.png')
         self.image = Image.open(f'images/{i+1}.png')
         draw = ImageDraw.Draw(self.image)
         font = ImageFont.truetype("Font/Font.ttf", 32)
-        draw.text((90, h-36), f'u/{self.comment_authors[i]}',
+        draw.text((140, h-36), f'u/{self.comment_authors[i]}',
                   font=font, fill=(57, 57, 257))
         self.image.save(f'images/{i+1}.png')
 
     def drawComment(self, comment, i):
         self.image = Image.new('RGB', (1080, 1920), color=(24, 25, 26))
         draw = ImageDraw.Draw(self.image)
-        lines = textwrap.wrap(comment, width=40)
+        lines = textwrap.wrap(comment, width=35)
         y_text = 1920
         font = ImageFont.truetype("Font/Font.ttf", 48)
         hgt = (y_text-(54*len(lines)))//2
         for line in lines:
             h = (y_text-(54*len(lines)))/2
             # print(y_text, line_height , len(lines))
-            draw.text((90, h),
+            draw.text((140, h),
                       line, font=font, fill=(200, 200, 200))
             y_text += 54*2
         self.image.save(f'images/{i+1}.png')

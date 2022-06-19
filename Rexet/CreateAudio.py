@@ -3,13 +3,13 @@ from Rexet.CreateOneVid import CreateOneVid
 
 
 class CreateAudio():
-    def __init__(self, to_read):
+    def __init__(self, to_read, subreddit):
         self.to_read = to_read
 
         for i in range(len(to_read)):
             self.readrexit(to_read[i], i)
         i = len(to_read)
-        CreateOneVid(i)
+        CreateOneVid(i, to_read[0], subreddit)
 
     def readrexit(self, to_read, i):
         myobj = gTTS(text=to_read, lang='en', slow=False)
